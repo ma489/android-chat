@@ -6,6 +6,6 @@
     <string name="text_nomessages">No messages yet!</string>
     <string name="text_entermessage">Enter message here...</string>
     <string name="button_send">Send</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Connect</string>
     <string name="cta_connect">Connect to a server...</string>
 </resources>

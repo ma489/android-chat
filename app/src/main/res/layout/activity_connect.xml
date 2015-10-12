@@ -12,17 +12,20 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:id="@+id/hostname"
         android:text="Hostname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText
+        android:id="@+id/portnumber"
         android:text="Port Number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
         android:text="Connect!"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="connect"/>
 
 
 </LinearLayout>

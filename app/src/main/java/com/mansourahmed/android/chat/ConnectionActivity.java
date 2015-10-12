@@ -1,9 +1,12 @@
 package com.mansourahmed.android.chat;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 
 public class ConnectionActivity extends ActionBarActivity {
@@ -38,4 +41,16 @@ public class ConnectionActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void connect(View view) {
+        EditText hostnameView = (EditText) findViewById(R.id.hostname);
+        String hostname = hostnameView.getText().toString();
+        EditText portnumberView = (EditText) findViewById(R.id.portnumber);
+        String portNumber = portnumberView.getText().toString();
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra(HOSTNAME, hostname);
+        intent.putExtra(PORTNUMBER, portNumber);
+        startActivity(intent);
+    }
+
 }
