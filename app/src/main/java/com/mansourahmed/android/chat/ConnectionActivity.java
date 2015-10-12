@@ -8,6 +8,9 @@ import android.view.MenuItem;
 
 public class ConnectionActivity extends ActionBarActivity {
 
+    public static final String HOSTNAME = "com.mansourahmed.myfirstapp.HOSTNAME";
+    public static final String PORTNUMBER = "com.mansourahmed.myfirstapp.PORTNUMBER";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
