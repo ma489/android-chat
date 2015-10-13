@@ -13,6 +13,7 @@ public class ConnectionActivity extends ActionBarActivity {
 
     public static final String HOSTNAME = "com.mansourahmed.myfirstapp.HOSTNAME";
     public static final String PORTNUMBER = "com.mansourahmed.myfirstapp.PORTNUMBER";
+    public static final String USERNAME = "com.mansourahmed.myfirstapp.USERNAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +48,28 @@ public class ConnectionActivity extends ActionBarActivity {
         String hostname = hostnameView.getText().toString();
         EditText portnumberView = (EditText) findViewById(R.id.portnumber);
         String portNumber = portnumberView.getText().toString();
+        EditText usernameView = (EditText) findViewById(R.id.username);
+        String username = usernameView.getText().toString();
         Intent intent = new Intent(this, ChatActivity.class);
         intent.putExtra(HOSTNAME, hostname);
         intent.putExtra(PORTNUMBER, portNumber);
+        intent.putExtra(USERNAME, username);
         startActivity(intent);
+    }
+
+    public void clearTextHostname(View view) {
+        EditText inputMessageView = (EditText) findViewById(R.id.hostname);
+        inputMessageView.setText("");
+    }
+
+    public void clearTextUsername(View view) {
+        EditText inputMessageView = (EditText) findViewById(R.id.username);
+        inputMessageView.setText("");
+    }
+
+    public void clearTextPortNumber(View view) {
+        EditText inputMessageView = (EditText) findViewById(R.id.portnumber);
+        inputMessageView.setText("");
     }
 
 }

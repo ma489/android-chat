@@ -23,7 +23,6 @@ import java.util.concurrent.ExecutionException;
 public class ChatActivity extends ActionBarActivity {
 
     private PrintWriter outputStream;
-//    private Socket clientSocket;
     private BufferedReader inputStream;
 
     @Override
@@ -32,14 +31,9 @@ public class ChatActivity extends ActionBarActivity {
         setContentView(R.layout.activity_chat);
         String hostname = getIntent().getStringExtra(ConnectionActivity.HOSTNAME);
         String portNumber = getIntent().getStringExtra(ConnectionActivity.PORTNUMBER);
-//        if (hostname == null) {
-//            hostname = "192.168.1.68";
-//        }
-//        if (portNumber == null) {
-//            portNumber = "8080";
-//        }
+        String username = getIntent().getStringExtra(ConnectionActivity.USERNAME);
         ServerConnectionTask serverConnectionTask = new ServerConnectionTask();
-        AsyncTask<String, Void, Socket> asyncResult = serverConnectionTask.execute(hostname, portNumber);
+        AsyncTask<String, Void, Socket> asyncResult = serverConnectionTask.execute(hostname, portNumber, username);
         try {
             Socket clientSocket = asyncResult.get();
             outputStream = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -83,6 +77,7 @@ public class ChatActivity extends ActionBarActivity {
 //        clearMessageWindowIfEmpty(messagesView);
         String input = getInput();
         handleInput(messagesView, input);
+//        messagesView.scroll
     }
 
     private void handleInput(TextView messagesView, String input) {
@@ -117,6 +112,11 @@ public class ChatActivity extends ActionBarActivity {
         if (messagesView.getText().equals(noMessages)) {
             messagesView.setText("");
         }
+    }
+
+    public void clearText(View view) {
+        EditText inputMessageView = (EditText) findViewById(R.id.input_message);
+        inputMessageView.getText().clear();
     }
 
 }
