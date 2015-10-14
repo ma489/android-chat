@@ -6,22 +6,30 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.mansourahmed.android.chat.MainActivity"
-    android:background="@color/accent_material_light">
+    >
 
     <TextView android:text="@string/intro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+        android:layout_weight="1"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Connect to a server"
-        android:onClick="connectToServer"/>
+        android:onClick="connectToServer"
+        android:layout_weight="1"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create a server"/>
+        android:text="Create a server"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
 
 </LinearLayout>

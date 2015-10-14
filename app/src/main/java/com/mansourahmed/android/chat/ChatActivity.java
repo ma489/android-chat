@@ -3,7 +3,6 @@ package com.mansourahmed.android.chat;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +23,7 @@ public class ChatActivity extends ActionBarActivity {
 
     private PrintWriter outputStream;
     private BufferedReader inputStream;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class ChatActivity extends ActionBarActivity {
         setContentView(R.layout.activity_chat);
         String hostname = getIntent().getStringExtra(ConnectionActivity.HOSTNAME);
         String portNumber = getIntent().getStringExtra(ConnectionActivity.PORTNUMBER);
-        String username = getIntent().getStringExtra(ConnectionActivity.USERNAME);
+        username = getIntent().getStringExtra(ConnectionActivity.USERNAME);
         ServerConnectionTask serverConnectionTask = new ServerConnectionTask();
         AsyncTask<String, Void, Socket> asyncResult = serverConnectionTask.execute(hostname, portNumber, username);
         try {
@@ -45,8 +45,9 @@ public class ChatActivity extends ActionBarActivity {
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         }
-        TextView messagesView = (TextView) findViewById(R.id.messages);
-        messagesView.setMovementMethod(new ScrollingMovementMethod());
+//        TextView messagesView = (TextView) findViewById(R.id.messages);
+//        messagesView.setMovementMethod(new ScrollingMovementMethod());
+//        messagesView.setVerticalScrollBarEnabled(true);
     }
 
     @Override
@@ -74,14 +75,12 @@ public class ChatActivity extends ActionBarActivity {
 
     public void sendMessage(View view) {
         TextView messagesView = (TextView) findViewById(R.id.messages);
-//        clearMessageWindowIfEmpty(messagesView);
         String input = getInput();
         handleInput(messagesView, input);
-//        messagesView.scroll
     }
 
     private void handleInput(TextView messagesView, String input) {
-        messagesView.append("[You]: " + input + " (" + getTime() + ")\n");
+//        messagesView.append(formatMessage(input, username));
         getServerResponse(messagesView, input);
     }
 
@@ -90,12 +89,19 @@ public class ChatActivity extends ActionBarActivity {
         AsyncTask<String, Void, String> asyncResult = serverResponseRetrievalTask.execute(text);
         try {
             String response = asyncResult.get();
-            messagesView.append("[Server]: " + response + " (" + getTime() + ")\n");
+            String[] responseSplit = response.split(" - ");
+            String user = responseSplit[1];
+            String actualMessage = responseSplit[2];
+            messagesView.append(formatMessage(actualMessage, user));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String formatMessage(String response, final String userName) {
+        return " (" + getTime() + ") " + userName + ": " + response + "\n";
     }
 
     private String getTime() {
@@ -112,11 +118,6 @@ public class ChatActivity extends ActionBarActivity {
         if (messagesView.getText().equals(noMessages)) {
             messagesView.setText("");
         }
-    }
-
-    public void clearText(View view) {
-        EditText inputMessageView = (EditText) findViewById(R.id.input_message);
-        inputMessageView.getText().clear();
     }
 
 }
