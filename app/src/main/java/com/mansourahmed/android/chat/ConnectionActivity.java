@@ -57,19 +57,4 @@ public class ConnectionActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    public void clearTextHostname(View view) {
-        EditText inputMessageView = (EditText) findViewById(R.id.hostname);
-        inputMessageView.setText("");
-    }
-
-    public void clearTextUsername(View view) {
-        EditText inputMessageView = (EditText) findViewById(R.id.username);
-        inputMessageView.setText("");
-    }
-
-    public void clearTextPortNumber(View view) {
-        EditText inputMessageView = (EditText) findViewById(R.id.portnumber);
-        inputMessageView.setText("");
-    }
-
 }

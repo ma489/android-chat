@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-
 public class MainActivity extends ActionBarActivity {
 
     @Override
@@ -42,4 +41,10 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(this, ConnectionActivity.class);
         startActivity(intent);
     }
+
+    public void startAServer(View view) {
+        Intent intent = new Intent(this, ServerStartActivity.class);
+        startActivity(intent);
+    }
+
 }

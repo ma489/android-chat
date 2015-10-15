@@ -8,7 +8,7 @@
     tools:context="com.mansourahmed.android.chat.ConnectionActivity"
     >
 
-    <TextView android:text="@string/connect_server"
+    <TextView android:text="@string/start_server"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"/>
@@ -17,24 +17,16 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         />
-    <EditText
-        android:id="@+id/hostname"
-        android:hint="Hostname"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/ip_address"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:cursorVisible="true"
+        android:textSize="30dp"
         />
     <EditText
-        android:id="@+id/portnumber"
+        android:id="@+id/portnumber_local_server"
         android:hint="Port Number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:cursorVisible="true"/>
-    <EditText
-        android:id="@+id/username"
-        android:hint="Username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -45,11 +37,11 @@
         android:layout_weight="1"
         />
     <Button
-        android:text="Connect!"
+        android:text="Start Server!"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:onClick="connect"/>
+        android:onClick="startServer"/>
 
 
 </LinearLayout>

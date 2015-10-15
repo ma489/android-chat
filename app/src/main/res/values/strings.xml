@@ -7,6 +7,9 @@
     <string name="text_entermessage">Enter message here...</string>
     <string name="button_send">Send</string>
     <string name="title_activity_main">Chat</string>
-    <string name="cta_connect">Connect to a server...</string>
+    <string name="connect_server">Connect to a server...</string>
     <string name="intro">Welcome to Chat!</string>
+    <string name="title_activity_server_start">ServerStartActivity</string>
+    <string name="start_server">Start a server locally...</string>
+    <string name="title_activity_local_server_connection">LocalServerConnectionActivity</string>
 </resources>

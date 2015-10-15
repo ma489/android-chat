@@ -8,48 +8,44 @@
     tools:context="com.mansourahmed.android.chat.ConnectionActivity"
     >
 
-    <TextView android:text="@string/connect_server"
+    <TextView
+        android:id="@+id/server_startup"
+        android:text="Server startup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        />
     <EditText
-        android:id="@+id/hostname"
+        android:id="@+id/local_hostname"
         android:hint="Hostname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:cursorVisible="true"
+        android:cursorVisible="false"
+        android:editable="false"
         />
     <EditText
-        android:id="@+id/portnumber"
+        android:id="@+id/local_portnumber"
         android:hint="Port Number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:cursorVisible="true"/>
+        android:editable="false"
+        android:cursorVisible="false"/>
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/local_username"
         android:hint="Username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:editable="true"
         android:cursorVisible="true"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        />
     <Button
-        android:text="Connect!"
+        android:text="Chat on local server!"
+        android:id="@+id/chat_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:onClick="connect"/>
+        android:onClick="chatOnLocalServer"/>
 
 
 </LinearLayout>
