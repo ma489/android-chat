@@ -14,7 +14,9 @@ public class ServerConnectionTask extends AsyncTask<String, Void, Socket> {
     @Override
     protected Socket doInBackground(String... params) {
         try {
-            Socket clientSocket = new Socket(params[0], Integer.valueOf(params[1]));
+            String hostname = params[0];
+            Integer portNumber = Integer.valueOf(params[1]);
+            Socket clientSocket = new Socket(hostname, portNumber);
             new PrintWriter(clientSocket.getOutputStream(), true).println("/setUsername " + params[2]);
             return clientSocket;
         } catch (IOException e) {

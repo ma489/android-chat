@@ -2,7 +2,11 @@ package com.mansourahmed.android.chat;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,8 +18,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
 
@@ -24,6 +26,8 @@ public class ChatActivity extends ActionBarActivity {
     private PrintWriter outputStream;
     private BufferedReader inputStream;
     private String username;
+    private TextView messagesView;
+//    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,22 +36,23 @@ public class ChatActivity extends ActionBarActivity {
         String hostname = getIntent().getStringExtra(ConnectionActivity.HOSTNAME);
         String portNumber = getIntent().getStringExtra(ConnectionActivity.PORTNUMBER);
         username = getIntent().getStringExtra(ConnectionActivity.USERNAME);
-        ServerConnectionTask serverConnectionTask = new ServerConnectionTask();
-        AsyncTask<String, Void, Socket> asyncResult = serverConnectionTask.execute(hostname, portNumber, username);
+        AsyncTask<String, Void, Socket> asyncResult =
+                new ServerConnectionTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, hostname, portNumber, username);
+        Socket clientSocket;
         try {
-            Socket clientSocket = asyncResult.get();
+            clientSocket = asyncResult.get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+        try {
             outputStream = new PrintWriter(clientSocket.getOutputStream(), true);
             inputStream = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
         }
-//        TextView messagesView = (TextView) findViewById(R.id.messages);
-//        messagesView.setMovementMethod(new ScrollingMovementMethod());
-//        messagesView.setVerticalScrollBarEnabled(true);
+        messagesView = (TextView) findViewById(R.id.messages);
+        messagesView.setMovementMethod(new ScrollingMovementMethod());
+        pollForServerResponse(messagesView);
     }
 
     @Override
@@ -74,43 +79,39 @@ public class ChatActivity extends ActionBarActivity {
 
 
     public void sendMessage(View view) {
-        TextView messagesView = (TextView) findViewById(R.id.messages);
         String input = getInput();
-        handleInput(messagesView, input);
+        handleInput(input);
+        messagesView.append("/local/ - " + input + "\n");
     }
 
-    private void handleInput(TextView messagesView, String input) {
-//        messagesView.append(formatMessage(input, username));
-        getServerResponse(messagesView, input);
+    private void handleInput(String input) {
+        System.out.println("Handling input: " + input);
+        AsyncTask<String, Void, Void> asyncResult =
+                new MessageSendingTask(outputStream).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, input);
+        System.out.println("Handled input: " + input);
     }
 
-    private void getServerResponse(TextView messagesView, String text) {
-        ServerResponseRetrievalTask serverResponseRetrievalTask = new ServerResponseRetrievalTask(inputStream, outputStream);
-        AsyncTask<String, Void, String> asyncResult = serverResponseRetrievalTask.execute(text);
-        try {
-            String response = asyncResult.get();
-            String[] responseSplit = response.split(" - ");
-            String user = responseSplit[1];
-            String actualMessage = responseSplit[2];
-            messagesView.append(formatMessage(actualMessage, user));
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+    private void pollForServerResponse(TextView messagesView) {
+        System.out.println("Executing server-response-poller");
+        AsyncTask<Void, Void, String> asyncResult =
+                new ServerResponsePollingTask(inputStream, messageHandler).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private Handler messageHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            String message = msg.getData().getString("message");
+            messagesView.append("msg.what: " + msg.what + " - " + message + "\n");
         }
-    }
-
-    private String formatMessage(String response, final String userName) {
-        return " (" + getTime() + ") " + userName + ": " + response + "\n";
-    }
-
-    private String getTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        return sdf.format(Calendar.getInstance().getTime());
-    }
+    };
 
     private String getInput() {
-        return ((EditText) findViewById(R.id.input_message)).getText().toString();
+        EditText inputView = (EditText) findViewById(R.id.input_message);
+        String input = inputView.getText().toString();
+        inputView.getText().clear();
+        inputView.setText("");
+        return input;
     }
 
     private void clearMessageWindowIfEmpty(TextView messagesView) {

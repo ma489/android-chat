@@ -45,6 +45,9 @@ public class ClientListener implements Callable<Void> {
     private void respondToMessages() throws IOException {
         String inputLine = inputStream.readLine();
         while (inputLine != null) {
+            String incomingChatMessage = getDateTime() + " - [" + username + "] - " + inputLine;
+            messageQueue.offer(incomingChatMessage);
+            System.out.println(incomingChatMessage);
             if (inputLine.startsWith("/setUsername")) {
                 username = inputLine.split(" ")[1];
                 String usernameChangedMessage = getDateTime() + " - [Server] - "
@@ -52,9 +55,6 @@ public class ClientListener implements Callable<Void> {
                 messageQueue.add(usernameChangedMessage);
                 System.out.println(usernameChangedMessage);
             }
-            String incomingChatMessage = getDateTime() + " - [" + username + "] - " + inputLine;
-            messageQueue.offer(incomingChatMessage);
-            System.out.println(incomingChatMessage);
             inputLine = inputStream.readLine();
         }
     }

@@ -77,7 +77,7 @@ public class ServerStartActivity extends ActionBarActivity {
         if (ipAddress == null) {
             WifiManager systemService = (WifiManager) getSystemService(WIFI_SERVICE);
             AsyncTask<WifiManager, Void, String> asyncResult =
-                    new AlternativeIpAddressGetterTask().execute(systemService);
+                    new AlternativeIpAddressGetterTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, systemService);
             try {
                 ipAddress = asyncResult.get();
             } catch (InterruptedException | ExecutionException e) {

@@ -27,6 +27,7 @@ public class ClientResponder implements Callable<Void> {
             if (message == null) {
                 continue;
             }
+            System.out.println("Distributing message to " + clientSockets.size() + " clients: " + message);
             for (Socket socket : clientSockets) {
                 PrintWriter outputStream = new PrintWriter(socket.getOutputStream(), true);
                 outputStream.println(message);

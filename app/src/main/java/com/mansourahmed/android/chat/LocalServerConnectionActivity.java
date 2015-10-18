@@ -99,7 +99,7 @@ public class LocalServerConnectionActivity extends ActionBarActivity {
         EditText usernameView = (EditText) findViewById(R.id.local_username);
         String username = usernameView.getText().toString();
         Intent intent = new Intent(this, ChatActivity.class);
-        intent.putExtra(ConnectionActivity.HOSTNAME, hostname);
+        intent.putExtra(ConnectionActivity.HOSTNAME, "localhost");
         intent.putExtra(ConnectionActivity.PORTNUMBER, portNumber);
         intent.putExtra(ConnectionActivity.USERNAME, username);
         startActivity(intent);
