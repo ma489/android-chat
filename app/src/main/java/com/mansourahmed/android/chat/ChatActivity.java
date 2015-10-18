@@ -27,7 +27,6 @@ public class ChatActivity extends ActionBarActivity {
     private BufferedReader inputStream;
     private String username;
     private TextView messagesView;
-//    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +101,7 @@ public class ChatActivity extends ActionBarActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             String message = msg.getData().getString("message");
-            messagesView.append("msg.what: " + msg.what + " - " + message + "\n");
+            messagesView.append(message);
         }
     };
 

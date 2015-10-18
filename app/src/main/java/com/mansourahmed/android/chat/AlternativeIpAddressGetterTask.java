@@ -17,16 +17,12 @@ public class AlternativeIpAddressGetterTask extends AsyncTask<WifiManager, Void,
 
     @Override
     protected String doInBackground(WifiManager... params) {
-//        WifiManager wm = params[0];
-//        int ipAddress = wm.getConnectionInfo().getIpAddress();
-//        return Formatter.formatIpAddress(ipAddress);
         try {
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
                 NetworkInterface intf = en.nextElement();
                 for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
                     InetAddress inetAddress = enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress()) {
-//                        return inetAddress.getHostAddress();
                         return Formatter.formatIpAddress(inetAddress.hashCode());
                     }
                 }

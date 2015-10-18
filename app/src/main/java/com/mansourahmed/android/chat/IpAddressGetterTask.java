@@ -12,9 +12,6 @@ public class IpAddressGetterTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-//        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
-//        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-//        return ip;
         try {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {

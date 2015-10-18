@@ -28,11 +28,6 @@ public class ServerResponsePollingTask extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         while (true) {
-//            try {
-//                Thread.sleep(5_000L);
-//            } catch (InterruptedException e) {
-//                System.out.println(e.getClass());
-//            }
             System.out.println("Polling for server responses...");
             AsyncTask<String, Void, String> asyncResult =
                     new ServerResponseRetrievalTask(inputStream).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -48,25 +43,22 @@ public class ServerResponsePollingTask extends AsyncTask<Void, Void, String> {
                     String actualMessage = responseSplit[2];
                     text = formatMessage(actualMessage, user);
                 } else {
-                    text = "null response from Server";
+                    text = "null response from Server\n";
                 }
             } catch (InterruptedException | ExecutionException | TimeoutException e) {
                 System.out.println(e.getClass());
-                text = "Failed to get response from server";
+                text = "Failed to get response from server\n";
             }
             Message msg = new Message();
             Bundle bundle = new Bundle();
-            bundle.putString("message", text + " " + System.currentTimeMillis());
+            bundle.putString("message", text);
             msg.setData(bundle);
             messageHandler.sendMessage(msg);
-//        return text;
-//            messagesView.append(text);
-//            return text;
         }
     }
 
     private String formatMessage(String response, final String userName) {
-        return " (" + getTime() + ") " + userName + ": " + response + "\n";
+        return "(" + getTime() + ") " + userName + ": " + response + "\n";
     }
 
     private String getTime() {
