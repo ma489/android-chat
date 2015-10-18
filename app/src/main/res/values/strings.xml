@@ -12,4 +12,6 @@
     <string name="title_activity_server_start">ServerStartActivity</string>
     <string name="start_server">Start a server locally...</string>
     <string name="title_activity_local_server_connection">LocalServerConnectionActivity</string>
+    <string name="chat_locally">Chat on local server!</string>
+    <string name="server_startup">Server startup</string>
 </resources>

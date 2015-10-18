@@ -1,4 +1,4 @@
-package com.mansourahmed.android.chat;
+package com.mansourahmed.android.chat.server;
 
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;

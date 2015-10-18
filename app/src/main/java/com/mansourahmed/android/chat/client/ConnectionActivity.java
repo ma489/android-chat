@@ -1,4 +1,4 @@
-package com.mansourahmed.android.chat;
+package com.mansourahmed.android.chat.client;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
+import com.mansourahmed.android.chat.R;
 
 
 public class ConnectionActivity extends ActionBarActivity {

@@ -1,4 +1,4 @@
-package com.mansourahmed.android.chat;
+package com.mansourahmed.android.chat.client;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.mansourahmed.android.chat.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -80,7 +82,6 @@ public class ChatActivity extends ActionBarActivity {
     public void sendMessage(View view) {
         String input = getInput();
         handleInput(input);
-        messagesView.append("/local/ - " + input + "\n");
     }
 
     private void handleInput(String input) {
@@ -111,13 +112,6 @@ public class ChatActivity extends ActionBarActivity {
         inputView.getText().clear();
         inputView.setText("");
         return input;
-    }
-
-    private void clearMessageWindowIfEmpty(TextView messagesView) {
-        String noMessages = getResources().getString(R.string.text_nomessages);
-        if (messagesView.getText().equals(noMessages)) {
-            messagesView.setText("");
-        }
     }
 
 }

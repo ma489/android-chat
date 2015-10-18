@@ -1,4 +1,4 @@
-package com.mansourahmed.android.chat;
+package com.mansourahmed.android.chat.client;
 
 import android.os.AsyncTask;
 

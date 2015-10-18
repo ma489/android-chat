@@ -1,8 +1,6 @@
-package com.mansourahmed.android.chat;
+package com.mansourahmed.android.chat.server;
 
 import android.os.AsyncTask;
-
-import com.mansourahmed.android.chat.server.ChatServer;
 
 /**
  * Created by root on 15/10/15.

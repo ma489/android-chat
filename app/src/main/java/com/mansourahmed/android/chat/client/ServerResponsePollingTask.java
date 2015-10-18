@@ -1,4 +1,4 @@
-package com.mansourahmed.android.chat;
+package com.mansourahmed.android.chat.client;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,12 +35,12 @@ public class ServerResponsePollingTask extends AsyncTask<Void, Void, String> {
             String response;
             String text;
             try {
-                response = asyncResult.get(5L, TimeUnit.SECONDS);
+                response = asyncResult.get(10L, TimeUnit.SECONDS);
                 System.out.println("Response from server: " + response);
                 if (response != null) {
                     String[] responseSplit = response.split(" - ");
                     String user = responseSplit[1];
-                    String actualMessage = responseSplit[2];
+                    String actualMessage = responseSplit.length == 3 ? responseSplit[2] : "";
                     text = formatMessage(actualMessage, user);
                 } else {
                     text = "null response from Server\n";

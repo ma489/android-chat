@@ -7,6 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.mansourahmed.android.chat.client.ConnectionActivity;
+import com.mansourahmed.android.chat.server.ServerStartActivity;
+
 public class MainActivity extends ActionBarActivity {
 
     @Override

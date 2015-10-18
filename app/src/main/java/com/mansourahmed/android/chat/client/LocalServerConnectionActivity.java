@@ -1,4 +1,4 @@
-package com.mansourahmed.android.chat;
+package com.mansourahmed.android.chat.client;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,7 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.mansourahmed.android.chat.R;
 import com.mansourahmed.android.chat.server.ChatServer;
+import com.mansourahmed.android.chat.server.RunServerTask;
+import com.mansourahmed.android.chat.server.ServerStartActivity;
+import com.mansourahmed.android.chat.server.ServerStartTask;
 
 import java.util.concurrent.ExecutionException;
 
